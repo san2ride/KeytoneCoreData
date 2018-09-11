@@ -17,6 +17,7 @@
 		AD571C3A2146619200938FB6 /* Student+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD571C362146619200938FB6 /* Student+CoreDataClass.swift */; };
 		AD571C3B2146619200938FB6 /* Student+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD571C372146619200938FB6 /* Student+CoreDataProperties.swift */; };
 		AD571C3E2146634600938FB6 /* LessonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD571C3D2146634600938FB6 /* LessonTableViewController.swift */; };
+		ADF101EF21479BC90087ACE9 /* LessonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADF101EE21479BC90087ACE9 /* LessonService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		AD571C362146619200938FB6 /* Student+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AD571C372146619200938FB6 /* Student+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Student+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AD571C3D2146634600938FB6 /* LessonTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonTableViewController.swift; sourceTree = "<group>"; };
+		ADF101EE21479BC90087ACE9 /* LessonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +69,7 @@
 				AD571C1E21465FEA00938FB6 /* AppDelegate.swift */,
 				AD571C2221465FEA00938FB6 /* Main.storyboard */,
 				AD571C3C214661E900938FB6 /* datamodel */,
+				ADF101F021479BD50087ACE9 /* service */,
 				AD571C412146637600938FB6 /* model */,
 				AD571C402146636600938FB6 /* view */,
 				AD571C3F2146635200938FB6 /* controller */,
@@ -117,6 +120,14 @@
 			children = (
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		ADF101F021479BD50087ACE9 /* service */ = {
+			isa = PBXGroup;
+			children = (
+				ADF101EE21479BC90087ACE9 /* LessonService.swift */,
+			);
+			path = service;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 				AD571C2721465FEA00938FB6 /* Keystone_Park.xcdatamodeld in Sources */,
 				AD571C3A2146619200938FB6 /* Student+CoreDataClass.swift in Sources */,
 				AD571C382146619200938FB6 /* Lesson+CoreDataClass.swift in Sources */,
+				ADF101EF21479BC90087ACE9 /* LessonService.swift in Sources */,
 				AD571C392146619200938FB6 /* Lesson+CoreDataProperties.swift in Sources */,
 				AD571C1F21465FEA00938FB6 /* AppDelegate.swift in Sources */,
 				AD571C3B2146619200938FB6 /* Student+CoreDataProperties.swift in Sources */,
