@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD2357D92149079F00102C2D /* LessonDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD2357D82149079F00102C2D /* LessonDetailTableViewController.swift */; };
 		AD571C1F21465FEA00938FB6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD571C1E21465FEA00938FB6 /* AppDelegate.swift */; };
 		AD571C2421465FEA00938FB6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD571C2221465FEA00938FB6 /* Main.storyboard */; };
 		AD571C2721465FEA00938FB6 /* Keystone_Park.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = AD571C2521465FEA00938FB6 /* Keystone_Park.xcdatamodeld */; };
@@ -21,6 +22,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AD2357D82149079F00102C2D /* LessonDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LessonDetailTableViewController.swift; sourceTree = "<group>"; };
 		AD571C1B21465FEA00938FB6 /* Keystone Park.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Keystone Park.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD571C1E21465FEA00938FB6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AD571C2321465FEA00938FB6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				AD571C3D2146634600938FB6 /* LessonTableViewController.swift */,
+				AD2357D82149079F00102C2D /* LessonDetailTableViewController.swift */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			files = (
 				AD571C2721465FEA00938FB6 /* Keystone_Park.xcdatamodeld in Sources */,
 				AD571C3A2146619200938FB6 /* Student+CoreDataClass.swift in Sources */,
+				AD2357D92149079F00102C2D /* LessonDetailTableViewController.swift in Sources */,
 				AD571C382146619200938FB6 /* Lesson+CoreDataClass.swift in Sources */,
 				ADF101EF21479BC90087ACE9 /* LessonService.swift in Sources */,
 				AD571C392146619200938FB6 /* Lesson+CoreDataProperties.swift in Sources */,

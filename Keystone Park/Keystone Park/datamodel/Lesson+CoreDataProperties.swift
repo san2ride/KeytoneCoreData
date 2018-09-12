@@ -17,7 +17,7 @@ extension Lesson {
         return NSFetchRequest<Lesson>(entityName: "Lesson")
     }
 
-    @NSManaged public var type: String?
+    @NSManaged public var type: String
     @NSManaged public var students: NSSet?
 
 }

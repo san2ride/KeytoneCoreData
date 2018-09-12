@@ -19,12 +19,13 @@ typealias StudentHandler = (Bool, [Student]) -> ()
 class LessonService {
     private let moc: NSManagedObjectContext
     private var students = [Student]()
+    private var lessons = [Lesson]()
     
     init(moc: NSManagedObjectContext) {
         self.moc = moc
     }
     
-    // MARK: - Public
+    // MARK: - Public function
     
     // READ
     func getAllStudents() -> [Student]? {
@@ -46,9 +47,25 @@ class LessonService {
         return nil
     }
     
-    // CREATE
+    func getAvailableLessons() -> [Lesson]? {
+        let sortByLesson = NSSortDescriptor(key: "type", ascending: true)
+        let sortDescriptors = [sortByLesson]
+        
+        let request: NSFetchRequest<Lesson> = Lesson.fetchRequest()
+        request.sortDescriptors = sortDescriptors
+        
+        do {
+            lessons = try moc.fetch(request)
+            return lessons
+        }
+        catch {
+            print("Error fetching students: \(error.localizedDescription)")
+        }
+        return nil
+    }
     
-    func addStudent(name: String, for type: LessonType, completion: StudentHandler) {
+    // CREATE
+    func addStudent(name: String, for type: LessonType, completion: StudentHandler?) {
         let student = Student(context: moc)
         student.name = name
         
@@ -56,23 +73,21 @@ class LessonService {
             register(student, for: lesson)
             students.append(student)
             
-            completion(true, students)
+            completion?(true, students)
         }
         
         save()
     }
     
     // UPDATE
-    
     func update(currentStudent student: Student, withName name: String, forLesson lesson: String) {
         // Check if student current lesson == new lesson type
-        if student.lesson?.type?.caseInsensitiveCompare(lesson) == .orderedSame {
+        if student.lesson.type.caseInsensitiveCompare(lesson) == .orderedSame {
             let lesson = student.lesson
-            let studentsList = Array(lesson?.students?.mutableCopy() as! NSMutableSet) as! [Student]
-            
+            let studentsList = Array(lesson.students?.mutableCopy() as! NSMutableSet) as! [Student]
             if let index = studentsList.index(where: { $0 == student }) {
                 studentsList[index].name = name
-                lesson?.students = NSSet(array: studentsList)
+                lesson.students = NSSet(array: studentsList)
             }
         }
         else {
@@ -93,9 +108,14 @@ class LessonService {
         let lesson = student.lesson
         
         students = students.filter({ $0 != student })
-        lesson?.removeFromStudents(student)
+        lesson.removeFromStudents(student)
         moc.delete(student)
         save()
+    }
+    
+    func deleteLesson(lesson: Lesson, deleteHandler: @escaping (Bool) -> Void) {
+        moc.delete(lesson)
+        save(completion: deleteHandler)
     }
     
     // MARK: - Private
@@ -105,10 +125,10 @@ class LessonService {
         request.predicate = NSPredicate(format: "type = %@", type.rawValue)
         
         var lesson: Lesson?
-        
         do {
-            let result = try moc.fetch(request)
-            lesson = result.isEmpty ? addNew(lesson: type) : result.first
+            let result = try self.moc.fetch(request)
+            lesson = result.count > 0 ? result.first! : addNew(lesson: type)
+            
         } catch let error as NSError {
             print("Error getting lesson: \(error.localizedDescription)")
         }
@@ -121,19 +141,27 @@ class LessonService {
         lesson.type = type.rawValue
         
         return lesson
-        
     }
     
     private func register(_ student: Student, for lesson: Lesson) {
         student.lesson = lesson
     }
     
-    private func save() {
+    private func save(completion: ((Bool) -> Void)? = nil) {
+        var success: Bool
+        
         do {
             try moc.save()
+            success = true
         }
         catch let error as NSError {
             print("Save failed: \(error.localizedDescription)")
+            moc.rollback()
+            success = false
+        }
+        
+        if let completion = completion {
+            completion(success)
         }
     }
 }

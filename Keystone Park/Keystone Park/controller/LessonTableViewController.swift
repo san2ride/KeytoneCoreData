@@ -11,6 +11,12 @@ import CoreData
 
 class LessonTableViewController: UITableViewController {
     
+    // MARK: IBAction
+    @IBAction func addStudentAction(_ sender: UIBarButtonItem) {
+        present(alertController(actionType: "add"), animated: true, completion: nil)
+    }
+    
+    // MARK: Public Properties
     var moc: NSManagedObjectContext? {
         didSet {
             if let moc = moc {
@@ -24,25 +30,30 @@ class LessonTableViewController: UITableViewController {
     private var studentList = [Student]()
     private var studentToUpdate: Student?
     
-    @IBAction func addStudentAction(_ sender: UIBarButtonItem) {
-        present(alertController(actionType: "add"), animated: true, completion: nil)
-    }
-    
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         loadStudents()
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "segueLesson" {
+            let destination = segue.destination as! LessonDetailTableViewController
+            destination.moc = moc
+        }
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return studentList.count
     }
 
@@ -51,7 +62,7 @@ class LessonTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "studentCell", for: indexPath)
         
         cell.textLabel?.text = studentList[indexPath.row].name
-        cell.detailTextLabel?.text = studentList[indexPath.row].lesson?.type
+        cell.detailTextLabel?.text = studentList[indexPath.row].lesson.type
         
         return cell
     }
@@ -85,10 +96,10 @@ class LessonTableViewController: UITableViewController {
         
         alertController.addTextField { [weak self] (textField: UITextField) in
             textField.placeholder = "Lesson Type: Ski | Snowboard"
-            textField.text = self?.studentToUpdate == nil ? "" : self?.studentToUpdate?.lesson?.type
+            textField.text = self?.studentToUpdate == nil ? "" : self?.studentToUpdate?.lesson.type
         }
         
-        let defaultAction = UIAlertAction(title: actionType.uppercased(), style: .default) { [weak self] (action) in
+        let defaultAction = UIAlertAction(title: actionType.uppercased(), style: .default) { [weak self] (action: UIAlertAction) in
             guard let studentName = alertController.textFields?[0].text, let lesson = alertController.textFields?[1].text else { return }
             
             if actionType.caseInsensitiveCompare("add") == .orderedSame {
